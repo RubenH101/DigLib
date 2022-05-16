@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'main.css' %}" rel="stylesheet" type="text/css">
+    <title>
+        {% block title %}
+            BookEX
+        {% endblock title %}
+    </title>
+</head>
+<body style="text-align: center;">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light ">
+      <a class="navbar-brand" href="/">
+          <img src="{% static 'logo.jpg' %}" width="40" height="40" alt="" class="d-inline-block align-top">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/displaybooks">Display Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/postbook">Post Book</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/aboutus">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/mybooks">My Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/searchbook">Search Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/wishlist">Wishlist</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/chat">Chat Room</a>
+          </li>
+        </ul>
+        <span class="nav-item ms-auto">
+          {% if user.is_authenticated %}
+          {{ user.username }} <a class="nav-link" href="{% url 'logout'%}?next=/">Logout</a>
+          {% else %}
+            Not Logged In <a href="{% url 'login' %}?next=/">Login</a>
+          {% endif %}
+        </span>
+      </div>
+    </nav>
+    <div id="topbanner">
+        <img src="{% static 'topbanner.jpg' %}" width="800" height="200" alt="" />
+    </div>
+    <div>
+        <section id="main" style="width: 100%; margin: 0 auto; text-align: center;">
+            {% block content %}
+            Hello World
+            {% endblock content %}
+        </section>
+    </div>
+
+    <footer id="footer">
+        Copyright 2021 CS3337 Django Web Design Project Team X
+    </footer>
+</body>
+</html>

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li>
+            <a href="{{ item.link }}"> {{ item.item }} </a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+
+{% block content %}
+<h1 align="center"> Display Books </h1>
+<table align="center" border="2" width="600">
+    <tr>
+        <td>
+            {{ book.name }}
+        </td>
+        <td>
+            <img src="{% static book.pic_path %}" width="50" height="50">
+        </td>
+        <td>
+            {{ book.username }}
+        </td>
+        <td>
+            {{ book.web }}
+        </td>
+        <td>
+            {{ book.price }}
+        </td>
+        <td>
+            {{ book.publishdate }}
+        </td>
+    </tr>
+</table>
+<br>
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <div class="headings d-flex justify-content-between align-items-center mb-3">
+                <h5 class="font-italic">{{ comments.count }} Comment{{ comments|pluralize }} on {{book.name}}</h5>
+            </div>
+            {% for comment in comments %}
+
+            <div class="card p-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="user d-flex flex-row align-items-center"> <i class="fas fa-user-circle"></i> <span>
+                        <small class="font-weight-bold text-primary">&nbsp;&nbsp;{{comment.username}}</small>
+                        <small class="font-weight-bold">{{comment.text}}</small></span> </div> <small>{{comment.date}}</small>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+<form method="post">
+    {{ comment_form.as_p }}
+    {% csrf_token %}
+    <button type="submit" class="btn btn-info">Submit</button>
+</form>
+
+</div>
+</div>
+
+
+
+<hr>
+
+<h1>Add Rating:</h1>
+<div>
+    <form style="text-align: center;" action="" method="post" novalidate>
+        <div class="radio-buttons">
+            <input type="radio" id="1star" name="rating" value="1">
+            <input type="radio" id="2star" name="rating" value="2">
+            <input type="radio" id="3star" name="rating" value="3">
+            <input type="radio" id="4star" name="rating" value="4">
+            <input type="radio" id="5star" name="rating" value="5">
+        </div>
+
+        <p>1 &nbsp; 2 &nbsp; 3 &nbsp; 4 &nbsp; 5</p>
+        <button class="btn btn-info"> Submit </button>
+        {% csrf_token %}
+    </form>
+</div>
+<br>
+<h4>
+    Your rating: {{ rating }}
+</h4>
+<h4>
+    Average rating: {{ average_rating }}
+</h4>
+<h4>
+    Total ratings: {{ rating_count }}
+</h4>
+{% endblock content %}
+
